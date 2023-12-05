@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float jumpSpeed;
     public GameObject crouchColliderObj;
-
     public Sprite crouchSprite;
 
     Rigidbody2D rb;
