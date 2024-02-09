@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeout: 5
-  damage: 20
+  damage: 1
 --- !u!50 &806600854256227327
 Rigidbody2D:
   serializedVersion: 4

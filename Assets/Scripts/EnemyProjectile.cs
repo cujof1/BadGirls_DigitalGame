@@ -22,9 +22,13 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerHealth>() != null)
+        PlayerHealth possiblePlayerHealthComp = null;
+        possiblePlayerHealthComp = collision.gameObject.GetComponent<PlayerHealth>();
+        if (possiblePlayerHealthComp == null) possiblePlayerHealthComp = collision.gameObject.transform.parent.GetComponent<PlayerHealth>();
+
+        if (possiblePlayerHealthComp != null)
         {
-            collision.gameObject.GetComponent<PlayerHealth>().health -= damage;
+            possiblePlayerHealthComp.DamagePlayer(damage);
             Destroy(gameObject);
         }
     }

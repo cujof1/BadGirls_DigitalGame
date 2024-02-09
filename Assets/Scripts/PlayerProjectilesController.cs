@@ -21,14 +21,20 @@ public class PlayerProjectilesController : MonoBehaviour
     PlayerMovement playerMovement;
     int collectedTrees;
 
+    public AudioClip bouquetShootSFX;
+    [Range(0, 1)] public float bouquetShootVolume;
+
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
+        if (UIManager.Instance != null) UIManager.Instance.UpdateTreesCountDisplay(collectedTrees);
+        else FindObjectOfType<UIManager>().UpdateTreesCountDisplay(collectedTrees);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             if (selectedProjectileIsTree == false)
             {
@@ -40,11 +46,14 @@ public class PlayerProjectilesController : MonoBehaviour
                 GameObject treeProjectileInstance = Instantiate(treeProjectile, projectilesSpawnPoint.position, Quaternion.identity);
                 treeProjectileInstance.GetComponent<Rigidbody2D>().AddForce(treeProjectileForce);
                 collectedTrees--;
+                UIManager.Instance.UpdateTreesCountDisplay(collectedTrees);
             }
-            
+
+
+            AudioSource.PlayClipAtPoint(bouquetShootSFX, transform.position, bouquetShootVolume);
         }
 
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (selectedProjectileIsTree == false) selectedProjectileIsTree = true;
             else selectedProjectileIsTree = false;
@@ -57,6 +66,8 @@ public class PlayerProjectilesController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             collectedTrees++;
+
+            UIManager.Instance.UpdateTreesCountDisplay(collectedTrees);
         }
     }
 }

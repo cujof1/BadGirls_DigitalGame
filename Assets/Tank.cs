@@ -15,6 +15,8 @@ public class Tank : MonoBehaviour
 
     public int damage;
 
+    public AudioClip projectileSFX;
+
     void Update()
     {
         timer += Time.deltaTime;
@@ -24,6 +26,8 @@ public class Tank : MonoBehaviour
             GameObject projectileInstance = Instantiate(bulletProjectile, projectilesSpawnPoint.position, Quaternion.identity);
 
             projectileInstance.GetComponent<Rigidbody2D>().AddForce(bulletProjectileForce);
+
+            AudioSource.PlayClipAtPoint(projectileSFX, transform.position);
 
             timer = 0f;
         }

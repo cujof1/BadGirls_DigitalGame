@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     
     float timer = 0;
 
-    public int damage;
+    public float damage;
 
     void Update()
     {
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().health -= damage;
+            collision.gameObject.GetComponent<Enemy>().Damage(damage);
             Destroy(gameObject);
         }
     }
